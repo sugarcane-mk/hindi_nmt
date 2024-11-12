@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech-to-Speech Translation System</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJX3Y8bX7a7D5X5X9P2tD6b2b1g5K4f6jefhVfhbJ0XQ00M7XKZZE4VeZ22F" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo-container">
+            <img src="logos/ssn.png" alt="SSN Logo" class="logo">
+            <img src="logos/snu.png" alt="SNU Logo" class="logo">
+            <h1>Standalone Speech-to-Speech Translation System</h1>
+            <img src="logos/iitd.png" alt="IIT Dharwad Logo" class="logo">
+            <img src="logos/iiitd.png" alt="IIT Dharwad Logo" class="logo">
+        </div>
+    </header>
+
+    <div class="content container mt-4">
+        <h2>Hindi to Tamil Translation</h2>
+
+        <!-- Speech-to-Speech Translation -->
+        <div class="input-section">
+            <h3>Speak in Hindi:</h3>
+            <button id="start" class="btn btn-primary">
+                <i class="fas fa-microphone"></i> Start Recording
+            </button>
+            <button id="stop" class="btn btn-danger" disabled>
+                <i class="fas fa-stop"></i> Stop Recording
+            </button>
+            <p id="status">Click "Start Recording" to begin...</p>
+        </div>
+
+        <!-- Hindi and Tamil Text Side by Side -->
+        <div class="row mb-4">
+            <!-- Recognized Hindi Text -->
+            <div class="col-md-6">
+                <h3>Recognized Hindi:</h3>
+                <p id="hindiText" class="border p-3">Hindi text will appear here...</p>
+            </div>
+
+            <!-- Translated Tamil Text -->
+            <div class="col-md-6">
+                <h3>Translated Tamil:</h3>
+                <p id="tamilText" class="border p-3">Tamil translation will appear here...</p>
+                <p id="tamilTranslitText">Tamil Transliteration will appear here...</p>
+            </div>
+        </div>
+
+        <!-- Play Translated Audio Section -->
+        <div class="audio-section">
+            <button id="playButton" class="btn btn-success" disabled>
+                <i class="fas fa-volume-up"></i> Play Translated Audio
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer with Stakeholders' Logos -->
+    <footer class="bg-light py-4">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-4 text-center mb-4 mb-md-0">
+                    <p>This application was built in association with :<br></p>
+                    <p>Sri Sivasubramaniya Nadar College of Engineering (SSN)<br>
+                        Kalavakkam, Tamil Nadu 603110<br>
+                        Phone: 044 2746 9700<br>
+                    </p>
+                    <img src="logos/ssn.png" alt="SSN Logo" class="stakeholder-logo mb-2">
+                </div>
+                <div class="col-12 col-md-4 text-center mb-4 mb-md-0">
+                    <p>Shiv Nadar University (SNU)<br>
+                        Kalavakkam, Tamil Nadu 603110<br>
+                        Phone:  1800 208 1199<br>
+                    </p>
+                    <img src="logos/snu.png" alt="SNU Logo" class="stakeholder-logo mb-2">
+                </div>
+                <div class="col-12 col-md-4 text-center mb-4 mb-md-0">
+                    <p>Indian Institute of Technology Dharwad<br>
+                        Anjaneya Nagar, Belur, Karnataka 580011<br>
+                    </p>
+                    <img src="iit_dharwad.jpg" alt="IIT Dharwad Logo" class="stakeholder-logo mb-2">
+                </div>
+                <div class="col-12 col-md-4 text-center mb-4 mb-md-0">
+                    <p>Indian Institute of Information Technology Dharwad<br>
+                        Ittigatti Rd, Sattur Colony, Karnataka 5800091<br>
+                        Phone: 0836 225 0879<br>
+                    </p>
+                    <img src="logos/iiitd.png" alt="IIT Dharwad Logo" class="stakeholder-logo mb-2">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
