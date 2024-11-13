@@ -14,7 +14,8 @@ const tamilText = document.getElementById("tamilText");
 const tamilTranslitText = document.getElementById("tamilTranslitText"); // Add this element for transliteration
 
 // Start recording
-startButton.addEventListener("click", async () => {
+startButton.addEventListener("click", async (event) => {
+    event.preventDefault(); // Prevent any default behavior that might cause reload
     startButton.disabled = true;
     stopButton.disabled = false;
     statusText.textContent = "Recording...";
@@ -38,7 +39,8 @@ startButton.addEventListener("click", async () => {
 });
 
 // Stop recording
-stopButton.addEventListener("click", () => {
+stopButton.addEventListener("click", (event) => {
+    event.preventDefault(); // Prevent any default behavior that might cause reload
     startButton.disabled = false;
     stopButton.disabled = true;
     statusText.textContent = "Stopped recording.";
@@ -50,12 +52,12 @@ stopButton.addEventListener("click", () => {
 
 // Send audio to the backend
 async function sendAudioToAPI() {
-    const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
+    audioBlob = new Blob(audioChunks, { type: "audio/wav" });
     const formData = new FormData();
     formData.append("audio_file", audioBlob, "recording.wav");
 
     try {
-        const response = await fetch("http://127.0.0.1:8000/translate-audio", { // API endpoint
+        const response = await fetch("http://127.0.0.1:8000/translate-audio", {
             method: "POST",
             body: formData
         });
@@ -67,13 +69,19 @@ async function sendAudioToAPI() {
         const data = await response.json(); // Parse the JSON response
 
         // Log the data for debugging
-        console.log(data);
+        console.log("Backend Response:", data);
+
+        data.decoded_text  = data.decoded_text .split(' ').slice(1).join(' ');
 
         // Show the recognized Hindi text
         hindiText.textContent = data.decoded_text || "No Hindi text recognized.";
 
+        data.tamil_text = data.tamil_text.split(' ').slice(1).join(' ');
+
         // Show the translated Tamil text
         tamilText.textContent = data.tamil_text || "No Tamil translation.";
+
+        data.tamil_transliterated_EN = data.tamil_transliterated_EN.split(' ').slice(1).join(' ');
 
         // Show the transliterated Tamil text in English
         tamilTranslitText.textContent = data.tamil_transliterated_EN || "No transliteration.";
@@ -82,7 +90,7 @@ async function sendAudioToAPI() {
         playButton.disabled = false;
         audioUrl = `http://127.0.0.1:8000/download_audio?filename=${data.audio_file}`;
     } catch (error) {
-        statusText.textContent = "Error uploading audio.";
+        // statusText.textContent = "Error uploading audio.";
         console.error("Error:", error);
     }
 
@@ -96,3 +104,4 @@ playButton.addEventListener("click", () => {
         audio.play();
     }
 });
+

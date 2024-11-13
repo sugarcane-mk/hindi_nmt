@@ -21,24 +21,20 @@ app.add_middleware(
 @app.post("/translate-audio")
 async def run_model(audio_file: UploadFile = File(...)):
     # Save the uploaded audio file
-    # audio_path = f"/home/sltlab/kaldi/egs/IIT-DH-CNN_Testing/{audio_file.filename}"
     audio_path = os.path.join("/home/sltlab/kaldi/egs/IIT-DH-CNN_Testing/", audio_file.filename)
-    print(audio_path)
+    print("Saving audio to:", audio_path)  # Debugging statement
     with open(audio_path, "wb") as saved_file:
-        print("In")
         shutil.copyfileobj(audio_file.file, saved_file)
-        # content = await audio_file.read()
-        # saved_file.write(content)
-    print("Done")
-    # return "done"
-    print(audio_path)
+    print("Audio file saved.")  # Debugging statement
+
     # Run final_run.sh script with audio_path as an argument
     result = subprocess.run(
         ["/home/sltlab/kaldi/egs/IIT-DH-CNN_Testing/app_run.sh", audio_path],
         capture_output=True, text=True
     )
-
-    print(result)
+    print("Execution completed for app_run.sh is a success.")
+    print("stdout:", result.stdout)  # Debugging statement
+    # print("stderr:", result.stderr)  # Debugging statement
     
     # Check if the script executed successfully
     if result.returncode != 0:
@@ -53,6 +49,7 @@ async def run_model(audio_file: UploadFile = File(...)):
         output_data = json.load(json_file)
 
     # Return the JSON data (including text and file paths) to the frontend
+    print("Loaded JSON:", output_data)  # Debugging statement
     return output_data
 
 @app.get("/download_audio")
@@ -61,3 +58,4 @@ async def download_audio(filename: str):
     if os.path.exists(audio_path):
         return FileResponse(audio_path, media_type="audio/wav", filename=filename)
     return JSONResponse(content={"error": "File not found"}, status_code=404)
+
