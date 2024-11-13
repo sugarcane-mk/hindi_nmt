@@ -50,12 +50,12 @@ stopButton.addEventListener("click", () => {
 
 // Send audio to the backend
 async function sendAudioToAPI() {
-    audioBlob = new Blob(audioChunks, { type: "audio/wav" });
+    const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
     const formData = new FormData();
     formData.append("audio_file", audioBlob, "recording.wav");
 
     try {
-        const response = await fetch("http://127.0.0.1:8000/translate-audio", {
+        const response = await fetch("http://127.0.0.1:8000/translate-audio", { // API endpoint
             method: "POST",
             body: formData
         });
